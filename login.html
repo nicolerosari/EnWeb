@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Account Creation and Login</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            flex-direction: column;
+            background-color: white; /* Set background color to grey */
+        }
+        
+
+        .container {
+            border: 3px solid #ccc;
+            padding: 20px;
+            border-radius: 65px;
+            width: 400px; /* Increased width */
+            text-align: center;
+background-color: lightpink; /* Set background color to ivory */
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="createAccountContainer" class="container">
+        <h2>Create Account</h2>
+        <input type="text" id="createUsername" class="form-control" placeholder="Username"><br><br>
+        <input type="password" id="createPassword" class="form-control" placeholder="Password"><br><br>
+        <button id="createAccountButton" class="btn btn-primary">Create Account</button>
+    </div>
+
+    <div id="signInContainer" class="container hidden">
+        <h2>Sign In</h2>
+        <input type="text" id="signInUsername" class="form-control" placeholder="Username"><br><br>
+        <input type="password" id="signInPassword" class="form-control" placeholder="Password"><br><br>
+        <button id="signInButton" class="btn btn-success">Sign In</button>
+        <p id="signInError" style="color: red;"></p>
+    </div>
+
+    <div id="welcomeContainer" class="container hidden">
+        <h2>Welcome to EnWeb!</h2>
+        <p id="welcomeMessage"></p>
+        <button id="continueButton" class="btn btn-info">Continue</button>
+    </div>
+
+    <script>
+        const createAccountContainer = document.getElementById('createAccountContainer');
+        const signInContainer = document.getElementById('signInContainer');
+        const welcomeContainer = document.getElementById('welcomeContainer');
+        const createUsernameInput = document.getElementById('createUsername');
+        const createPasswordInput = document.getElementById('createPassword');
+        const createAccountButton = document.getElementById('createAccountButton');
+        const signInUsernameInput = document.getElementById('signInUsername');
+        const signInPasswordInput = document.getElementById('signInPassword');
+        const signInButton = document.getElementById('signInButton');
+        const welcomeMessage = document.getElementById('welcomeMessage');
+        const continueButton = document.getElementById('continueButton');
+        const signInError = document.getElementById('signInError');
+
+        let users = {}; // Store users (username: password)
+
+        createAccountButton.addEventListener('click', () => {
+            const username = createUsernameInput.value;
+            const password = createPasswordInput.value;
+
+            if (username && password) {
+                users[username] = password;
+                createAccountContainer.classList.add('hidden');
+                signInContainer.classList.remove('hidden');
+            } else {
+                alert('Please enter a username and password.');
+            }
+        });
+
+        signInButton.addEventListener('click', () => {
+            const username = signInUsernameInput.value;
+            const password = signInPasswordInput.value;
+
+            if (users[username] && users[username] === password) {
+                signInContainer.classList.add('hidden');
+                welcomeContainer.classList.remove('hidden');
+                welcomeMessage.textContent = `Welcome to EnWeb, ${username}! Welcome to your ultimate ENHYPEN resource!  Here you'll find high-quality photos, videos, news articles, and more.  We're constantly updating the site with fresh content, so check back often!`;
+                signInError.textContent = "";
+            } else {
+                signInError.textContent = "Incorrect username or password.";
+            }
+        });
+
+        continueButton.addEventListener('click', () => {
+            window.location.href = 'main.html';
+        });
+
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
